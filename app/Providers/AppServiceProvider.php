@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::shouldBeStrict(! app()->isProduction());
+        Vehicle::observe(VehicleObserver::class);
     }
 }
