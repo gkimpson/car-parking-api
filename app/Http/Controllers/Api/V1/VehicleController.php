@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
-use Exception;
 use Illuminate\Http\Response;
 
 class VehicleController extends Controller
