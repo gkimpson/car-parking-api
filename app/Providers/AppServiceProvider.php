@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Vehicle;
+use App\Observers\VehicleObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
