@@ -45,7 +45,6 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (NotFoundHttpException $e, $request) {
             // TODO: add conditions to this
-            dd($request->schemeAndHttpHost());
             if ($request->is('api/v1/vehicles/*')) { // <- Add your condition here
                 return response()->json([
                     'message' => 'Vehicle record not found.',
