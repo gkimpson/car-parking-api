@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
@@ -55,8 +56,35 @@ class ProfileTest extends TestCase
         $response->assertStatus(202);
     }
 
-    // TODO - write negative tests (do happy path & sad path)
-    // "negative" tests for non-ideal scenarios:
-    // that profile shouldn't be accessed by an unauthenticated user,
-    // the validation error appears in case of invalid data sent.
+    public function testUserCannotUpdatePasswordWithNonMatchingPassword()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->putJson('/api/v1/password', [
+            'current_password' => 'password',
+            'password' => 'testing123',
+            'password_confirmation' => 'incorrectpassword',
+        ]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJson([
+                'message' => 'The password confirmation does not match.',
+            ]);
+    }
+
+    public function testUnauthenticatedUserCannotAccessProfile()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user);
+        Auth::logout();
+        $this->assertGuest();
+        $response = $this->getJson('/api/v1/profile');
+
+        $response
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'Unauthenticated.',
+            ]);
+    }
 }
