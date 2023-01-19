@@ -54,4 +54,9 @@ class ProfileTest extends TestCase
 
         $response->assertStatus(202);
     }
+
+    // TODO - write negative tests (do happy path & sad path)
+    // "negative" tests for non-ideal scenarios:
+    // that profile shouldn't be accessed by an unauthenticated user,
+    // the validation error appears in case of invalid data sent.
 }
