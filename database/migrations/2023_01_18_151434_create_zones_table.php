@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\Zone;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

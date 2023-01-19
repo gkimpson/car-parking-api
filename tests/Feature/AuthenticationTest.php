@@ -15,7 +15,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->postJson('/api/v1/auth/login', [
-            'email'    => $user->email,
+            'email' => $user->email,
             'password' => 'password',
         ]);
 
@@ -27,7 +27,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->postJson('/api/v1/auth/login', [
-            'email'    => $user->email,
+            'email' => $user->email,
             'password' => 'wrong_password',
         ]);
 
@@ -37,9 +37,9 @@ class AuthenticationTest extends TestCase
     public function testUserCanRegisterWithCorrectCredentials()
     {
         $response = $this->postJson('/api/v1/auth/register', [
-            'name'                  => 'John Doe',
-            'email'                 => 'john@example.com',
-            'password'              => 'password',
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => 'password',
             'password_confirmation' => 'password',
         ]);
 
@@ -49,7 +49,7 @@ class AuthenticationTest extends TestCase
             ]);
 
         $this->assertDatabaseHas('users', [
-            'name'  => 'John Doe',
+            'name' => 'John Doe',
             'email' => 'john@example.com',
         ]);
     }
@@ -57,16 +57,16 @@ class AuthenticationTest extends TestCase
     public function testUserCannotRegisterWithIncorrectCredentials()
     {
         $response = $this->postJson('/api/v1/auth/register', [
-            'name'                  => 'John Doe',
-            'email'                 => 'john@example.com',
-            'password'              => 'password',
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => 'password',
             'password_confirmation' => 'wrong_password',
         ]);
 
         $response->assertStatus(422);
 
         $this->assertDatabaseMissing('users', [
-            'name'  => 'John Doe',
+            'name' => 'John Doe',
             'email' => 'john@example.com',
         ]);
     }

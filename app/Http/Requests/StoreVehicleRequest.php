@@ -24,7 +24,7 @@ class StoreVehicleRequest extends FormRequest
     public function rules()
     {
         return [
-            'reg_number' => 'required'
+            'reg_number' => 'required',
         ];
     }
 }

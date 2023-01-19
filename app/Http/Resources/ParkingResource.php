@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Services\ParkingPriceService;
-use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ParkingResource extends JsonResource
@@ -33,7 +32,7 @@ class ParkingResource extends JsonResource
                 'price_per_hour' => $this->zone->price_per_hour,
             ],
             'vehicle' => [
-                'reg_number' => $this->vehicle->reg_number
+                'reg_number' => $this->vehicle->reg_number,
             ],
             'start_time' => $this->start_time,
             'stop_time' => $this->stop_time,

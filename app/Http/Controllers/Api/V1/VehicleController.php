@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Exceptions\VehicleNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Resources\VehicleResource;
@@ -25,11 +24,7 @@ class VehicleController extends Controller
 
     public function show(Vehicle $vehicle)
     {
-        $somethingerror = true;
-        if ($somethingerror) {
-            throw new VehicleNotFoundException('Your error message');
-          }
-        // return VehicleResource::make($vehicle);
+        return VehicleResource::make($vehicle);
     }
 
     public function update(StoreVehicleRequest $request, Vehicle $vehicle)
