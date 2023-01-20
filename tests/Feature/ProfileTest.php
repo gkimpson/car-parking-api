@@ -78,8 +78,9 @@ class ProfileTest extends TestCase
         $user = User::factory()->create();
         $response = $this->actingAs($user);
         Auth::logout();
-        $this->assertGuest();
         $response = $this->getJson('/api/v1/profile');
+
+        $this->assertGuest();
 
         $response
             ->assertStatus(401)
