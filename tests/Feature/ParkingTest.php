@@ -4,7 +4,6 @@ use App\Models\Parking;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Zone;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -20,15 +19,15 @@ class ParkingTest extends TestCase
 
         $response = $this->actingAs($user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => $vehicle->id,
-            'zone_id'    => $zone->id,
+            'zone_id' => $zone->id,
         ]);
 
         $response->assertStatus(201)
             ->assertJsonStructure(['data'])
             ->assertJson([
                 'data' => [
-                    'start_time'  => now()->toDateTimeString(),
-                    'stop_time'   => null,
+                    'start_time' => now()->toDateTimeString(),
+                    'stop_time' => null,
                     'total_price' => 0,
                 ],
             ]);
@@ -44,19 +43,19 @@ class ParkingTest extends TestCase
 
         $this->actingAs($user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => $vehicle->id,
-            'zone_id'    => $zone->id,
+            'zone_id' => $zone->id,
         ]);
 
         $this->travel(2)->hours();
 
         $parking = Parking::first();
-        $response = $this->actingAs($user)->getJson('/api/v1/parkings/' . $parking->id);
+        $response = $this->actingAs($user)->getJson('/api/v1/parkings/'.$parking->id);
 
         $response->assertStatus(200)
             ->assertJsonStructure(['data'])
             ->assertJson([
                 'data' => [
-                    'stop_time'   => null,
+                    'stop_time' => null,
                     'total_price' => $zone->price_per_hour * 2,
                 ],
             ]);
@@ -70,13 +69,13 @@ class ParkingTest extends TestCase
 
         $this->actingAs($user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => $vehicle->id,
-            'zone_id'    => $zone->id,
+            'zone_id' => $zone->id,
         ]);
 
         $this->travel(2)->hours();
 
         $parking = Parking::first();
-        $response = $this->actingAs($user)->putJson('/api/v1/parkings/' . $parking->id);
+        $response = $this->actingAs($user)->putJson('/api/v1/parkings/'.$parking->id);
 
         $updatedParking = Parking::find($parking->id);
 
@@ -86,8 +85,8 @@ class ParkingTest extends TestCase
             ->assertJsonStructure(['data'])
             ->assertJson([
                 'data' => [
-                    'start_time'  => $updatedParking->start_time->toDateTimeString(),
-                    'stop_time'   => $updatedParking->stop_time->toDateTimeString(),
+                    'start_time' => $updatedParking->start_time->toDateTimeString(),
+                    'stop_time' => $updatedParking->stop_time->toDateTimeString(),
                     'total_price' => $updatedParking->total_price,
                 ],
             ]);

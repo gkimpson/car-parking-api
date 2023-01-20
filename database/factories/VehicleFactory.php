@@ -17,7 +17,7 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            'reg_number' => strtoupper(fake()->randomLetter()) . fake()->numberBetween(100, 999)
+            'reg_number' => strtoupper(fake()->randomLetter()).fake()->numberBetween(100, 999),
         ];
     }
 }
