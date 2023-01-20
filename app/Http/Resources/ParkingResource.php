@@ -26,6 +26,7 @@ class ParkingResource extends JsonResource
         $stopDate = $this->stop_time ?? null;
         $parkingDurationInSecs = ($stopDate) ? $startDate->diffInSeconds($stopDate) : 0;
 
+        // needed to fix issue with timezones on tests failing
         if ($startDate instanceof Carbon) {
             $startDate = $this->start_time->format('Y-m-d H:i:s');
         }
