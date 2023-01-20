@@ -9,7 +9,7 @@ use App\Models\Vehicle;
 use Illuminate\Http\Response;
 
 /**
- * @group Auth
+ * @group Vehicles
  */
 class VehicleController extends Controller
 {

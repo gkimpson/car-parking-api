@@ -9,7 +9,7 @@ use App\Services\ParkingPriceService;
 use Illuminate\Http\Request;
 
 /**
- * @group Auth
+ * @group Parking
  */
 class ParkingController extends Controller
 {

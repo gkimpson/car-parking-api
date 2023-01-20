@@ -7,7 +7,7 @@ use App\Http\Resources\ZoneResource;
 use App\Models\Zone;
 
 /**
- * @group Auth
+ * @group Zones
  */
 class ZoneController extends Controller
 {
