@@ -11,15 +11,24 @@ class ParkingTest extends TestCase
 {
     use RefreshDatabase;
 
+    private object $user;
+    private object $vehicle;
+    private object $zone;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+        $this->vehicle = Vehicle::factory()->create(['user_id' => $this->user->id]);
+        $this->zone = Zone::first();
+    }
+
     public function testUserCanStartParking()
     {
-        $user = User::factory()->create();
-        $vehicle = Vehicle::factory()->create(['user_id' => $user->id]);
-        $zone = Zone::first();
-
-        $response = $this->actingAs($user)->postJson('/api/v1/parkings/start', [
-            'vehicle_id' => $vehicle->id,
-            'zone_id' => $zone->id,
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => $this->zone->id,
         ]);
 
         $response->assertStatus(201)
@@ -33,49 +42,51 @@ class ParkingTest extends TestCase
             ]);
 
         $this->assertDatabaseCount('parkings', '1');
+        $this->assertDatabaseHas('parkings', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => $this->zone->id
+        ]);
     }
 
     public function testUserCanGetOngoingParkingWithCorrectPrice()
     {
-        $user = User::factory()->create();
-        $vehicle = Vehicle::factory()->create(['user_id' => $user->id]);
-        $zone = Zone::first();
-
-        $this->actingAs($user)->postJson('/api/v1/parkings/start', [
-            'vehicle_id' => $vehicle->id,
-            'zone_id' => $zone->id,
+        $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => $this->zone->id,
         ]);
 
         $this->travel(2)->hours();
 
         $parking = Parking::first();
-        $response = $this->actingAs($user)->getJson('/api/v1/parkings/'.$parking->id);
+        $response = $this->actingAs($this->user)->getJson('/api/v1/parkings/'.$parking->id);
 
         $response->assertStatus(200)
             ->assertJsonStructure(['data'])
             ->assertJson([
                 'data' => [
                     'stop_time' => null,
-                    'total_price' => $zone->price_per_hour * 2,
+                    'total_price' => $this->zone->price_per_hour * 2,
                 ],
             ]);
+
+        $this->assertDatabaseCount('parkings', '1');
+        $this->assertDatabaseHas('parkings', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => $this->zone->id
+        ]);
     }
 
     public function testUserCanStopParking()
     {
-        $user = User::factory()->create();
-        $vehicle = Vehicle::factory()->create(['user_id' => $user->id]);
-        $zone = Zone::first();
-
-        $this->actingAs($user)->postJson('/api/v1/parkings/start', [
-            'vehicle_id' => $vehicle->id,
-            'zone_id' => $zone->id,
+        $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => $this->zone->id,
         ]);
 
         $this->travel(2)->hours();
 
         $parking = Parking::first();
-        $response = $this->actingAs($user)->putJson('/api/v1/parkings/'.$parking->id);
+        $response = $this->actingAs($this->user)->putJson('/api/v1/parkings/'.$parking->id);
 
         $updatedParking = Parking::find($parking->id);
 
@@ -92,5 +103,30 @@ class ParkingTest extends TestCase
             ]);
 
         $this->assertDatabaseCount('parkings', '1');
+        $this->assertDatabaseHas('parkings', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => $this->zone->id
+        ]);
+    }
+
+    public function testUserPassingEmptyParametersCanSeeValidationMessage()
+    {
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => '',
+            'zone_id' => '',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The vehicle id field is required. (and 1 more error)',
+                'errors' => [
+                    'vehicle_id' => [
+                        'The vehicle id field is required.'
+                    ],
+                    'zone_id' => [
+                        'The zone id field is required.'
+                    ],
+                ]
+            ]);
     }
 }
