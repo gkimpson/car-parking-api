@@ -33,7 +33,6 @@ class ParkingController extends Controller
 
     public function stop(Parking $parking)
     {
-        // dd(now()->format('Y-m-d H:i:s'), $parking->start_time->format('Y-m-d H:i:s'));
         $parking->update([
             'stop_time' => now(),
             'total_price' => ParkingPriceService::calculatePrice($parking->zone_id, $parking->start_time),
