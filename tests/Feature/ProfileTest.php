@@ -10,7 +10,7 @@ class ProfileTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUserCanGetTheirProfile()
+    public function testUserCanGetTheirProfile(): void
     {
         $user = User::factory()->create();
 
@@ -22,7 +22,7 @@ class ProfileTest extends TestCase
             ->assertJsonFragment(['name' => $user->name]);
     }
 
-    public function testUserCanUpdateNameAndEmail()
+    public function testUserCanUpdateNameAndEmail(): void
     {
         $user = User::factory()->create();
 
@@ -42,7 +42,7 @@ class ProfileTest extends TestCase
         ]);
     }
 
-    public function testUserCanChangePassword()
+    public function testUserCanChangePassword(): void
     {
         $user = User::factory()->create();
 
@@ -55,7 +55,7 @@ class ProfileTest extends TestCase
         $response->assertStatus(202);
     }
 
-    public function testUserCannotUpdatePasswordWithNonMatchingPassword()
+    public function testUserCannotUpdatePasswordWithNonMatchingPassword(): void
     {
         $user = User::factory()->create();
 
@@ -72,7 +72,7 @@ class ProfileTest extends TestCase
             ]);
     }
 
-    public function testUnauthenticatedUserCannotAccessProfile()
+    public function testUnauthenticatedUserCannotAccessProfile(): void
     {
         $response = $this->getJson('/api/v1/profile');
 

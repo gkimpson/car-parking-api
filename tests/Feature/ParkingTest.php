@@ -26,7 +26,7 @@ class ParkingTest extends TestCase
         $this->zone = Zone::first();
     }
 
-    public function testUserCanStartParking()
+    public function testUserCanStartParking(): void
     {
         $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => $this->vehicle->id,
@@ -50,7 +50,7 @@ class ParkingTest extends TestCase
         ]);
     }
 
-    public function testUserCanGetOngoingParkingWithCorrectPrice()
+    public function testUserCanGetOngoingParkingWithCorrectPrice(): void
     {
         $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => $this->vehicle->id,
@@ -78,7 +78,7 @@ class ParkingTest extends TestCase
         ]);
     }
 
-    public function testUserCanStopParking()
+    public function testUserCanStopParking(): void
     {
         $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => $this->vehicle->id,
@@ -108,7 +108,7 @@ class ParkingTest extends TestCase
         ]);
     }
 
-    public function testUserPassingEmptyParametersCanSeeValidationMessage()
+    public function testUserPassingEmptyParametersCanSeeCorrectValidationMessages(): void
     {
         $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
             'vehicle_id' => '',
@@ -124,6 +124,99 @@ class ParkingTest extends TestCase
                     ],
                     'zone_id' => [
                         'The zone id field is required.',
+                    ],
+                ],
+            ]);
+    }
+
+    public function testUserPassingEmptyVehicleIdParameterCanSeeCorrectValidationMessages(): void
+    {
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => '',
+            'zone_id' => $this->zone->id,
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The vehicle id field is required.',
+                'errors' => [
+                    'vehicle_id' => [
+                        'The vehicle id field is required.',
+                    ],
+                ],
+            ]);
+    }
+
+    public function testUserPassingEmptyZoneIdParameterCanSeeCorrectValidationMessages(): void
+    {
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => '',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The zone id field is required.',
+                'errors' => [
+                    'zone_id' => [
+                        'The zone id field is required.',
+                    ],
+                ],
+            ]);
+    }
+
+    public function testUserPassingIncorrectParameterTypesCanSeeCorrectValidationMessages(): void
+    {
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => 'INCORRECT TYPE',
+            'zone_id' => 'INCORRECT TYPE',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The vehicle id must be an integer. (and 1 more error)',
+                'errors' => [
+                    'vehicle_id' => [
+                        'The vehicle id must be an integer.',
+                    ],
+                    'zone_id' => [
+                        'The zone id must be an integer.',
+                    ],
+                ],
+            ]);
+    }
+
+    public function testUserPassingIncorrectParameterVehicleTypeCanSeeCorrectValidationMessages(): void
+    {
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => 'INCORRECT TYPE',
+            'zone_id' => $this->zone->id,
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The vehicle id must be an integer.',
+                'errors' => [
+                    'vehicle_id' => [
+                        'The vehicle id must be an integer.',
+                    ],
+                ],
+            ]);
+    }
+
+    public function testUserPassingIncorrectParameterZoneTypeCanSeeCorrectValidationMessages(): void
+    {
+        $response = $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => $this->vehicle->id,
+            'zone_id' => 'INCORRECT TYPE',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The zone id must be an integer.',
+                'errors' => [
+                    'zone_id' => [
+                        'The zone id must be an integer.',
                     ],
                 ],
             ]);
