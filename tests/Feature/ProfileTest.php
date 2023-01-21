@@ -75,12 +75,7 @@ class ProfileTest extends TestCase
 
     public function testUnauthenticatedUserCannotAccessProfile()
     {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user);
-        Auth::logout();
         $response = $this->getJson('/api/v1/profile');
-
-        $this->assertGuest();
 
         $response
             ->assertStatus(401)
