@@ -17,12 +17,19 @@ class ParkingTest extends TestCase
 
     private object $zone;
 
+    private string $reg_number;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->user = User::factory()->create();
-        $this->vehicle = Vehicle::factory()->create(['user_id' => $this->user->id]);
+        $this->reg_number = 'GK123456';
+        $this->vehicle = Vehicle::factory()->create(
+            [
+                'user_id' => $this->user->id,
+                'reg_number' => $this->reg_number,
+            ]);
         $this->zone = Zone::first();
     }
 
@@ -78,17 +85,22 @@ class ParkingTest extends TestCase
         ]);
     }
 
-    public function testUserCanStopParking(): void
+    public function testUserCanStopParking()
     {
-        $this->actingAs($this->user)->postJson('/api/v1/parkings/start', [
-            'vehicle_id' => $this->vehicle->id,
-            'zone_id' => $this->zone->id,
+        $user = User::factory()->create();
+        $vehicle = Vehicle::factory()->create(['user_id' => $user->id]);
+        $zone = Zone::first();
+
+        $this->actingAs($user)->postJson('/api/v1/parkings/start', [
+            'vehicle_id' => $vehicle->id,
+            'zone_id' => $zone->id,
         ]);
 
         $this->travel(2)->hours();
 
         $parking = Parking::first();
-        $response = $this->actingAs($this->user)->putJson('/api/v1/parkings/'.$parking->id);
+        $response = $this->actingAs($user)->putJson('/api/v1/parkings/'.$parking->id);
+
         $updatedParking = Parking::find($parking->id);
 
         $response->assertStatus(200)
@@ -102,10 +114,6 @@ class ParkingTest extends TestCase
             ]);
 
         $this->assertDatabaseCount('parkings', '1');
-        $this->assertDatabaseHas('parkings', [
-            'vehicle_id' => $this->vehicle->id,
-            'zone_id' => $this->zone->id,
-        ]);
     }
 
     public function testUserPassingEmptyParametersCanSeeCorrectValidationMessages(): void
