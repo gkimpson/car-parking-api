@@ -12,7 +12,9 @@ class ParkingTest extends TestCase
     use RefreshDatabase;
 
     private object $user;
+
     private object $vehicle;
+
     private object $zone;
 
     public function setUp(): void
@@ -44,7 +46,7 @@ class ParkingTest extends TestCase
         $this->assertDatabaseCount('parkings', '1');
         $this->assertDatabaseHas('parkings', [
             'vehicle_id' => $this->vehicle->id,
-            'zone_id' => $this->zone->id
+            'zone_id' => $this->zone->id,
         ]);
     }
 
@@ -72,7 +74,7 @@ class ParkingTest extends TestCase
         $this->assertDatabaseCount('parkings', '1');
         $this->assertDatabaseHas('parkings', [
             'vehicle_id' => $this->vehicle->id,
-            'zone_id' => $this->zone->id
+            'zone_id' => $this->zone->id,
         ]);
     }
 
@@ -102,7 +104,7 @@ class ParkingTest extends TestCase
         $this->assertDatabaseCount('parkings', '1');
         $this->assertDatabaseHas('parkings', [
             'vehicle_id' => $this->vehicle->id,
-            'zone_id' => $this->zone->id
+            'zone_id' => $this->zone->id,
         ]);
     }
 
@@ -118,12 +120,12 @@ class ParkingTest extends TestCase
                 'message' => 'The vehicle id field is required. (and 1 more error)',
                 'errors' => [
                     'vehicle_id' => [
-                        'The vehicle id field is required.'
+                        'The vehicle id field is required.',
                     ],
                     'zone_id' => [
-                        'The zone id field is required.'
+                        'The zone id field is required.',
                     ],
-                ]
+                ],
             ]);
     }
 }
