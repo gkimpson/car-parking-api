@@ -87,11 +87,8 @@ class ParkingTest extends TestCase
 
         $parking = Parking::first();
         $response = $this->actingAs($this->user)->putJson('/api/v1/parkings/'.$parking->id);
-
         $updatedParking = Parking::find($parking->id);
 
-        // TODO: could use this perhaps for dates with fractional seconds?
-        // $updatedParking->start_time->format('Y-m-d\TH:i:s.u\Z')
         $response->assertStatus(200)
             ->assertJsonStructure(['data'])
             ->assertJson([
