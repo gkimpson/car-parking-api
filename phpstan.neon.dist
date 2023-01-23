@@ -1,0 +1,27 @@
+
+#210215 phpstan.neon.dist - larastan config
+parameters:
+
+    paths:
+        - app
+
+    # The level 9 is the highest level
+    level: 9
+
+    ignoreErrors:
+        - '#Call to an undefined static method [a-zA-Z0-9\\_]#'
+
+    excludePaths:
+        - storage
+        - vendor
+        - app/Http/Middleware
+        - app/Http/Controllers/Auth
+        - app/Http/Controllers/ProfileController.php
+        - app/View/Components
+        - app/Providers/
+        - app/Http/Requests/ProfileUpdateRequest.php
+        - app/Http/Requests/Auth
+
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
