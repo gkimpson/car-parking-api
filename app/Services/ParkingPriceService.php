@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class ParkingPriceService
 {
-    public static function calculatePrice(int $zone_id, string $startTime, string $stopTime = null): int
+    public static function calculatePrice(int $zone_id, string $startTime, string $stopTime = null): float
     {
         $start = new Carbon($startTime);
         $stop = (! is_null($stopTime)) ? new Carbon($stopTime) : now();

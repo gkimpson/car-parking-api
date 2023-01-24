@@ -17,7 +17,7 @@ class Parking extends Model
         'stop_time' => 'datetime',
     ];
 
-    protected static function booted()
+    protected static function booted(): void
     {
         static::addGlobalScope('user', function (Builder $builder) {
             $builder->where('user_id', auth()->id());

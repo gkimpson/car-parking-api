@@ -12,7 +12,7 @@ class VehicleObserver
      * @param  \App\Models\Vehicle  $vehicle
      * @return void
      */
-    public function created(Vehicle $vehicle)
+    public function created(Vehicle $vehicle): void
     {
         //
     }
@@ -23,7 +23,7 @@ class VehicleObserver
      * @param  \App\Models\Vehicle  $vehicle
      * @return void
      */
-    public function updated(Vehicle $vehicle)
+    public function updated(Vehicle $vehicle): void
     {
         //
     }
@@ -34,7 +34,7 @@ class VehicleObserver
      * @param  \App\Models\Vehicle  $vehicle
      * @return void
      */
-    public function deleted(Vehicle $vehicle)
+    public function deleted(Vehicle $vehicle): void
     {
         //
     }
@@ -45,7 +45,7 @@ class VehicleObserver
      * @param  \App\Models\Vehicle  $vehicle
      * @return void
      */
-    public function restored(Vehicle $vehicle)
+    public function restored(Vehicle $vehicle): void
     {
         //
     }
@@ -56,12 +56,12 @@ class VehicleObserver
      * @param  \App\Models\Vehicle  $vehicle
      * @return void
      */
-    public function forceDeleted(Vehicle $vehicle)
+    public function forceDeleted(Vehicle $vehicle): void
     {
         //
     }
 
-    public function creating(Vehicle $vehicle)
+    public function creating(Vehicle $vehicle): void
     {
         if (auth()->check()) {
             $vehicle->user_id = auth()->id();
