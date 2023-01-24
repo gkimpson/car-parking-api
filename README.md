@@ -9,3 +9,6 @@
 
 ## About Car Parking API
 Car Parking API app - Laravel API endpoints can be found in the postman collections. I'd recommend using Laravel Valet for simplicity, the postman collections in the `_misc` folder are currently mapped to `https://car-parking-api.test/` (change accordingly for your own setup). This is purely the backend (no frontend integration yet).
+
+# API Documentation
+https://bump.sh/gkimpson/doc/car-parking-api/operation/operation-post-api-v1-auth-logout
