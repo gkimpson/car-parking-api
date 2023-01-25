@@ -308,19 +308,14 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "password",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "password_confirmation",
-							"value": "password",
+							"key": "reg_number",
+							"value": "GK10ABC",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "https://car-parking-api.test/api/v1/vehicles/3",
+					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
 					"protocol": "https",
 					"host": [
 						"car-parking-api",
@@ -330,7 +325,7 @@
 						"api",
 						"v1",
 						"vehicles",
-						"3"
+						"1"
 					]
 				}
 			},
@@ -349,18 +344,7 @@
 				],
 				"body": {
 					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "password_confirmation",
-							"value": "password",
-							"type": "text"
-						}
-					]
+					"urlencoded": []
 				},
 				"url": {
 					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
@@ -395,18 +379,7 @@
 				],
 				"body": {
 					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "password_confirmation",
-							"value": "password",
-							"type": "text"
-						}
-					]
+					"urlencoded": []
 				},
 				"url": {
 					"raw": "https://car-parking-api.test/api/v1/vehicles",
@@ -513,7 +486,7 @@
 						},
 						{
 							"key": "email",
-							"value": "gkimpson@gmail.com\n",
+							"value": "gkimpson@gmail.com",
 							"type": "text"
 						}
 					]
@@ -621,7 +594,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "32|vKtIvwnWrZYn4l14VrE5YqcF8FWU9BciUlSTFhde",
+				"value": "78|AkMVW4M0eJRisLKXiLvmAelkaLZN3WXCFJ29WIxQ",
 				"type": "string"
 			}
 		]
