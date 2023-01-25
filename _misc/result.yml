@@ -203,7 +203,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/v1/vehicles/3:
+  /api/v1/vehicles/1:
     put:
       tags:
         - default
@@ -214,12 +214,9 @@ paths:
             schema:
               type: object
               properties:
-                password:
+                reg_number:
                   type: string
-                  example: password
-                password_confirmation:
-                  type: string
-                  example: password
+                  example: GK10ABC
       parameters:
         - name: Accept
           in: header
@@ -231,7 +228,6 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/v1/vehicles/1:
     delete:
       tags:
         - default
@@ -278,8 +274,7 @@ paths:
                   example: Gavin Kimpson
                 email:
                   type: string
-                  example: |
-                    gkimpson@gmail.com
+                  example: gkimpson@gmail.com
       parameters:
         - name: Accept
           in: header
