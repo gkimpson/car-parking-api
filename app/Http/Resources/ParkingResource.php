@@ -16,6 +16,14 @@ class ParkingResource extends JsonResource
      */
     public function toArray($request)
     {
+        if (!$this->vehicle) {
+            abort(404, 'Vehicle missing');
+        }
+
+        if (!$this->zone) {
+            abort(404, 'Zone missing');
+        }
+
         $totalPrice = $this->total_price ?? ParkingPriceService::calculatePrice(
             $this->zone_id,
             $this->start_time,
