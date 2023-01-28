@@ -4,13 +4,10 @@ use App\Models\Parking;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\Zone;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ParkingTest extends TestCase
 {
-    use RefreshDatabase;
-
     private object $user;
 
     private object $vehicle;

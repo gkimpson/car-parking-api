@@ -2,13 +2,10 @@
 
 use App\Models\User;
 use App\Models\Vehicle;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class VehicleTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testUserCanGetTheirOwnVehicles()
     {
         $john = User::factory()->create();

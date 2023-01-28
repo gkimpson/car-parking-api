@@ -2,13 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ZoneTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testPublicUserCanGetAllZones()
     {
         $response = $this->getJson('/api/v1/zones');
