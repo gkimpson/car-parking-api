@@ -25,15 +25,19 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Gavin
+                  description: Name of user
+                  example: John Doe
                 email:
                   type: string
-                  example: gkimpson@gmail.com
+                  description: Email address (must be unique in database)
+                  example: john.doe@domain.com
                 password:
                   type: string
+                  description: Password
                   example: password
                 password_confirmation:
                   type: string
+                  description: Password confirmation (must match password above)
                   example: password
       parameters:
         - name: Accept
@@ -59,9 +63,11 @@ paths:
               properties:
                 email:
                   type: string
+                  description: Email address
                   example: gkimpson@gmail.com
                 password:
                   type: string
+                  description: Password
                   example: password
       parameters:
         - name: Accept
@@ -95,46 +101,6 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/v1/vehicles:
-    post:
-      tags:
-        - default
-      summary: vehicles/store
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                reg_number:
-                  type: string
-                  example: AAA123
-      parameters:
-        - name: Accept
-          in: header
-          schema:
-            type: string
-          example: application/json
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-    get:
-      tags:
-        - default
-      summary: vehicles/show
-      parameters:
-        - name: Accept
-          in: header
-          schema:
-            type: string
-          example: application/json
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
   /api/v1/parkings/start:
     post:
       tags:
@@ -148,9 +114,11 @@ paths:
               properties:
                 vehicle_id:
                   type: integer
+                  description: Vehicle id (primary key in database table)
                   example: '1'
                 zone_id:
                   type: integer
+                  description: Zone id (primary key in database table)
                   example: '2'
       parameters:
         - name: Accept
@@ -191,6 +159,48 @@ paths:
               properties:
                 reg_number:
                   type: string
+                  description: Vehicle registration number (min 5 chars)
+                  example: AAA123
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/vehicles:
+    get:
+      tags:
+        - default
+      summary: vehicles/index
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: vehicles/store
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                reg_number:
+                  type: string
+                  description: Vehicle registration number (min 5 chars)
                   example: AAA123
       parameters:
         - name: Accept
@@ -204,6 +214,21 @@ paths:
           content:
             application/json: {}
   /api/v1/vehicles/1:
+    get:
+      tags:
+        - default
+      summary: vehicles/show
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
     put:
       tags:
         - default
@@ -216,6 +241,7 @@ paths:
               properties:
                 reg_number:
                   type: string
+                  description: Vehicle registration number (min 5 chars)
                   example: GK10ABC
       parameters:
         - name: Accept
@@ -271,9 +297,11 @@ paths:
               properties:
                 name:
                   type: string
+                  description: Name of user
                   example: Gavin Kimpson
                 email:
                   type: string
+                  description: Email address
                   example: gkimpson@gmail.com
       parameters:
         - name: Accept
@@ -299,12 +327,15 @@ paths:
               properties:
                 current_password:
                   type: string
+                  description: Current password
                   example: password12
                 password:
                   type: string
+                  description: New password
                   example: password
                 password_confirmation:
                   type: string
+                  description: New password confirmation (must must password above)
                   example: password
       parameters:
         - name: Accept
@@ -322,6 +353,22 @@ paths:
       tags:
         - default
       summary: zones/index
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/zones/1:
+    get:
+      tags:
+        - default
+      summary: zones/show
       parameters:
         - name: Accept
           in: header
