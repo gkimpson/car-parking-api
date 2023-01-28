@@ -37,3 +37,4 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('zones', [ZoneController::class, 'index']);
+Route::get('zones/{zone}', [ZoneController::class, 'show']);

@@ -15,4 +15,9 @@ class ZoneController extends Controller
     {
         return ZoneResource::collection(Zone::all());
     }
+
+    public function show(Zone $zone)
+    {
+        return ZoneResource::make($zone);
+    }
 }
