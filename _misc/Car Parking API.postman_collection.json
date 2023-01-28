@@ -22,22 +22,26 @@
 					"urlencoded": [
 						{
 							"key": "name",
-							"value": "Gavin",
+							"value": "John Doe",
+							"description": "Name of user",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "gkimpson@gmail.com",
+							"value": "john.doe@domain.com",
+							"description": "Email address (must be unique in database)",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "password",
+							"description": "Password",
 							"type": "text"
 						},
 						{
 							"key": "password_confirmation",
 							"value": "password",
+							"description": "Password confirmation (must match password above)",
 							"type": "text"
 						}
 					]
@@ -76,11 +80,13 @@
 						{
 							"key": "email",
 							"value": "gkimpson@gmail.com",
+							"description": "Email address",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "password",
+							"description": "Password",
 							"type": "text"
 						}
 					]
@@ -135,43 +141,6 @@
 			"response": []
 		},
 		{
-			"name": "vehicles/store",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "reg_number",
-							"value": "AAA123",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "https://car-parking-api.test/api/v1/vehicles",
-					"protocol": "https",
-					"host": [
-						"car-parking-api",
-						"test"
-					],
-					"path": [
-						"api",
-						"v1",
-						"vehicles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "parkings/start",
 			"request": {
 				"method": "POST",
@@ -188,11 +157,13 @@
 						{
 							"key": "vehicle_id",
 							"value": "1",
+							"description": "Vehicle id (primary key in database table)",
 							"type": "text"
 						},
 						{
 							"key": "zone_id",
 							"value": "2",
+							"description": "Zone id (primary key in database table)",
 							"type": "text"
 						}
 					]
@@ -234,6 +205,7 @@
 						{
 							"key": "reg_number",
 							"value": "AAA123",
+							"description": "Vehicle registration number (min 5 chars)",
 							"type": "text"
 						}
 					]
@@ -272,6 +244,7 @@
 						{
 							"key": "reg_number",
 							"value": "AAA123",
+							"description": "Vehicle registration number (min 5 chars)",
 							"type": "text"
 						}
 					]
@@ -287,76 +260,6 @@
 						"api",
 						"v1",
 						"parkings",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "vehicles/update",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "reg_number",
-							"value": "GK10ABC",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
-					"protocol": "https",
-					"host": [
-						"car-parking-api",
-						"test"
-					],
-					"path": [
-						"api",
-						"v1",
-						"vehicles",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "vehicles/delete",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": []
-				},
-				"url": {
-					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
-					"protocol": "https",
-					"host": [
-						"car-parking-api",
-						"test"
-					],
-					"path": [
-						"api",
-						"v1",
-						"vehicles",
 						"1"
 					]
 				}
@@ -416,6 +319,84 @@
 					"urlencoded": []
 				},
 				"url": {
+					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
+					"protocol": "https",
+					"host": [
+						"car-parking-api",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vehicles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vehicles/update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "reg_number",
+							"value": "GK10ABC",
+							"description": "Vehicle registration number (min 5 chars)",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
+					"protocol": "https",
+					"host": [
+						"car-parking-api",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vehicles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vehicles/store",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "reg_number",
+							"value": "AAA123",
+							"description": "Vehicle registration number (min 5 chars)",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
 					"raw": "https://car-parking-api.test/api/v1/vehicles",
 					"protocol": "https",
 					"host": [
@@ -426,6 +407,38 @@
 						"api",
 						"v1",
 						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vehicles/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://car-parking-api.test/api/v1/vehicles/1",
+					"protocol": "https",
+					"host": [
+						"car-parking-api",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vehicles",
+						"1"
 					]
 				}
 			},
@@ -482,11 +495,13 @@
 						{
 							"key": "name",
 							"value": "Gavin Kimpson",
+							"description": "Name of user",
 							"type": "text"
 						},
 						{
 							"key": "email",
 							"value": "gkimpson@gmail.com",
+							"description": "Email address",
 							"type": "text"
 						}
 					]
@@ -524,16 +539,19 @@
 						{
 							"key": "current_password",
 							"value": "password12",
+							"description": "Current password",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "password",
+							"description": "New password",
 							"type": "text"
 						},
 						{
 							"key": "password_confirmation",
 							"value": "password",
+							"description": "New password confirmation (must must password above)",
 							"type": "text"
 						}
 					]
@@ -587,6 +605,41 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "zones/show",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://car-parking-api.test/api/v1/zones/1",
+					"protocol": "https",
+					"host": [
+						"car-parking-api",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"zones",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -594,7 +647,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "78|AkMVW4M0eJRisLKXiLvmAelkaLZN3WXCFJ29WIxQ",
+				"value": "89|WgTCej722rHqPQ71SQG9oGYAIxaKzwCprznMlRBi",
 				"type": "string"
 			}
 		]
