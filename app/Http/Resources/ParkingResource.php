@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Requests\storeParkingRequest;
 use App\Services\ParkingPriceService;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
@@ -17,11 +16,11 @@ class ParkingResource extends JsonResource
      */
     public function toArray($request)
     {
-        if (!$this->vehicle) {
+        if (! $this->vehicle) {
             abort('400', 'Vehicle missing');
         }
 
-        if (!$this->zone) {
+        if (! $this->zone) {
             abort('400', 'Zone missing');
         }
 
