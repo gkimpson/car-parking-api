@@ -29,4 +29,16 @@ class ZoneTest extends TestCase
             ->assertJsonPath('data.2.name', 'Red Zone')
             ->assertJsonPath('data.2.price_per_hour', 300);
     }
+
+    public function testPublicUserCanGetSingleZone()
+    {
+        $response = $this->getJson('/api/v1/zones/1');
+
+        $response->assertStatus(200)
+            ->assertJsonStructure(['data'])
+            ->assertJsonCount(1)
+            ->assertJsonPath('data.id', 1)
+            ->assertJsonPath('data.name', 'Green Zone')
+            ->assertJsonPath('data.price_per_hour', 100);
+    }
 }
